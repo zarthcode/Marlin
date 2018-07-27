@@ -51,6 +51,23 @@
   #define PS_ON_PIN        4
 #endif
 
+//
+// TMC2130 Support
+//
+// If using a TMC2130 w/an SD card
+//
+// CS Pins wired to avoid conflict with the LCD
+// See https://www.thingiverse.com/asset:66604
+//
+
+#ifndef X_CS_PIN
+  #define X_CS_PIN 59
+#endif
+
+#ifndef Y_CS_PIN
+  #define Y_CS_PIN 63
+#endif
+
 #include "pins_RAMPS.h"
 
 //
