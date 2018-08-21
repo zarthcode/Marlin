@@ -584,7 +584,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.115, 80.195, 1594.405, 466.355 }  // Tevo Black Widow w/Stock Extruder
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.115, 80.195, 1594.405, 444.15 }  // Tevo Black Widow w/Stock Extruder
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -599,7 +599,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 1200, 800, 100, 10000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -609,7 +609,7 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_ACCELERATION          800    // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
 
@@ -622,7 +622,7 @@
  * value set here, it may happen instantaneously.
  */
 #define DEFAULT_XJERK                 10.0
-#define DEFAULT_YJERK                 10.0
+#define DEFAULT_YJERK                  5.0
 #define DEFAULT_ZJERK                  0.2
 #define DEFAULT_EJERK                  2.5
 
@@ -753,7 +753,7 @@
  */
 #define X_PROBE_OFFSET_FROM_EXTRUDER 30  // X offset: -left  +right  [of the nozzle]
 #define Y_PROBE_OFFSET_FROM_EXTRUDER -16  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.55   // Z offset: -below +above  [the nozzle]
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.10   // Z offset: -below +above  [the nozzle]
 
 // Certain types of probes need to stay away from edges
 #define MIN_PROBE_EDGE 10
