@@ -716,7 +716,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.230, 160.380, 3188.81, 190, 190 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.0, 161.340, 3214.53, 190, 190 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1038,15 +1038,15 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 350
+#define X_BED_SIZE 360
 #define Y_BED_SIZE 250
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
+#define X_MIN_POS -5
 #define Y_MIN_POS -5
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS Y_BED_SIZE + 35
+#define Y_MAX_POS Y_BED_SIZE + 50
 #define Z_MAX_POS 280
 
 /**
@@ -1148,7 +1148,7 @@
  *   leveling in steps so you can manually adjust the Z height at each grid-point.
  *   With an LCD controller the process is guided step-by-step.
  */
-//#define AUTO_BED_LEVELING_3POINT
+#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
 //#define AUTO_BED_LEVELING_BILINEAR
 #define AUTO_BED_LEVELING_UBL
