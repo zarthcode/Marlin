@@ -21,35 +21,20 @@
  */
 #pragma once
 
-#include <math.h>
+#include <stdint.h>
 
-/**
- * @brief Cartesian Point
- * @details Represents a three dimensional point on Cartesian coordinate system,
- *          using an additional fourth dimension for the extrusion length.
- *
- * @param x The x-coordinate of the point.
- * @param y The y-coordinate of the point.
- * @param z The z-coordinate of the point.
- */
-struct point_t {
-  float x, y, z;
-
-  /**
-   * @brief Three dimensional point constructor
-   *
-   * @param x The x-coordinate of the point.
-   * @param y The y-coordinate of the point.
-   * @param z The z-coordinate of the point.
-   */
-  point_t(const float x, const float y, const float z) : x(x), y(y), z(z) {}
-
-  /**
-   * @brief Two dimensional point constructor
-   *
-   * @param x The x-coordinate of the point.
-   * @param y The y-coordinate of the point.
-   */
-  point_t(const float x, const float y) : point_t(x, y, NAN) {}
-
+class CancelObject {
+public:
+  static bool skipping;
+  static int8_t object_count, active_object;
+  static uint32_t canceled;
+  static void set_active_object(const int8_t obj);
+  static void cancel_object(const int8_t obj);
+  static void uncancel_object(const int8_t obj);
+  static void report();
+  static inline void clear_active_object() { set_active_object(-1); }
+  static inline void cancel_active_object() { cancel_object(active_object); }
+  static inline void reset() { canceled = 0x0000; object_count = 0; clear_active_object(); }
 };
+
+extern CancelObject cancelable;
