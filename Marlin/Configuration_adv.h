@@ -1864,15 +1864,15 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT    1000
-    #define E0_MICROSTEPS  32
+    #define E0_CURRENT    1100
+    #define E0_MICROSTEPS  8
     #define E0_RSENSE    0.11
     #define E0_CHAIN_POS   -1
   #endif
 
   #if AXIS_IS_TMC(E1)
-    #define E1_CURRENT    1000
-    #define E1_MICROSTEPS  32
+    #define E1_CURRENT    1100
+    #define E1_MICROSTEPS  8
     #define E1_RSENSE    0.11
     #define E1_CHAIN_POS   -1
   #endif
@@ -1974,7 +1974,7 @@
    */
   #define STEALTHCHOP_XY
   #define STEALTHCHOP_Z
-  #define STEALTHCHOP_E
+//  #define STEALTHCHOP_E
 
   /**
    * Optimize spreadCycle chopper parameters by using predefined parameter sets
