@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -24,7 +24,7 @@
 #include "../../module/printcounter.h"
 #include "../../lcd/ultralcd.h"
 
-#include "../../Marlin.h" // for startOrResumeJob
+#include "../../MarlinCore.h" // for startOrResumeJob
 
 /**
  * M75: Start print timer
@@ -44,7 +44,7 @@ void GcodeSuite::M76() {
  * M77: Stop print timer
  */
 void GcodeSuite::M77() {
- print_job_timer.stop();
+  print_job_timer.stop();
 }
 
 #if ENABLED(PRINTCOUNTER)

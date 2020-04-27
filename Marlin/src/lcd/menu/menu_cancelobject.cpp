@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -26,46 +26,45 @@
 
 #include "../../inc/MarlinConfigPre.h"
 
-#if HAS_LCD_MENU && ENABLED(CANCEL_OBJECTS)
+#if BOTH(HAS_LCD_MENU, CANCEL_OBJECTS)
 
 #include "menu.h"
+#include "menu_addon.h"
 
 #include "../../feature/cancel_object.h"
 
-//
-// TODO: Select the active object
-// upon entry to the menu and present
-// a confirmation screen.
-//
+static void lcd_cancel_object_confirm() {
+  const int8_t v = MenuItemBase::itemIndex;
+  const char item_num[] = {
+    ' ',
+    char((v > 9) ? '0' + (v / 10) : ' '),
+    char('0' + (v % 10)),
+    '\0'
+  };
+  MenuItem_confirm::confirm_screen(
+    []{
+      cancelable.cancel_object(MenuItemBase::itemIndex - 1);
+      ui.completion_feedback();
+      ui.goto_previous_screen();
+    },
+    ui.goto_previous_screen,
+    GET_TEXT(MSG_CANCEL_OBJECT), item_num, PSTR("?")
+  );
+}
+
 void menu_cancelobject() {
   START_MENU();
-  MENU_BACK(MSG_MAIN);
-
-  GCODES_ITEM(MSG_OBJECT_CANCEL, PSTR("M486 C"));
+  BACK_ITEM(MSG_MAIN);
 
   // Draw cancelable items in a loop
-  for (int8_t i = 0; i < cancelable.object_count; i++) {
-    if (!TEST(cancelable.canceled, i)) {
-      editable.int8 = i;
-      ACTION_ITEM(MSG_OBJECT_CANCEL, [](){
-        cancelable.cancel_object(editable.int8);
-        ui.quick_feedback();
-      });
-      MENU_ITEM_ADDON_START(LCD_WIDTH - 2 - (i >= 10));
-        lcd_put_int(i);
-      MENU_ITEM_ADDON_END();
-    }
+  int8_t a = cancelable.active_object;
+  for (int8_t i = -1; i < cancelable.object_count; i++) {
+    if (i == a) continue;
+    int8_t j = i < 0 ? a : i;
+    if (!cancelable.is_canceled(j))
+      SUBMENU_N(j, MSG_CANCEL_OBJECT_N, lcd_cancel_object_confirm);
+    if (i < 0) SKIP_ITEM();
   }
-
-  /*
-  MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_OBJECT_CANCEL, &editable.int8, -1, 32, [](){
-    if (editable.int8 > -1) {
-      cancelable.cancel_object(editable.int8);
-      ui.quick_feedback();
-      editable.int8 = -1;
-    }
-  });
-  */
 
   END_MENU();
 }
