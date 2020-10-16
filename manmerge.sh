@@ -44,9 +44,9 @@ if test -f $1; then
 	# Merge items into the output file.
 	git merge-file -p $1.ours $1.common $1.theirs > $1
 	conflicts=$?
-	if [ $conflicts -eq 0 ] then
+	if [ "$conflicts" -eq 0 ]; then
 		echo "		No changes/conflicts."
-	elif [ $conflicts -gt 0 ] then
+	elif [ "$conflicts" -gt 0 ]; then
 		echo "		$conflicts conflicts ready for merge."
 	else
 		echo "		Error reported ($conflicts)."
