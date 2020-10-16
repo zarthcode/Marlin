@@ -17,19 +17,18 @@ if test -f ./manmerge.sh && test -f ./manmerge.txt; then
 	while read line; do
 		# Read line and process it
 		if test -f $line; then
-			echo "\t$line:"
+			echo "	$line:"
 			./manmerge.sh $line
 		else
-			echo "File $line not found."
+			echo "	File $line not found on disk."
 			exit 1
 		fi
 	done < ./manmerge.txt
-	echo "Automerge complete, please examine modified files, restage, recompile, and commit."
+	echo "Automerge complete! Examine modified files with your mergetool, restage, recompile, and commit."
 
 else
 	echo "./manmerge.sh and manmerge.txt not found! Aborting..."
-	git merge --abort
-	git reset --hard
+	echo "Abandon with 'git merge --abort && git reset --hard && git clean -f'"
 	exit 1
 fi
 

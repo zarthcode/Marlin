@@ -12,7 +12,7 @@ if test -f $1; then
 	# blurt common/theirs/ours into a file.
 	git show MERGE_HEAD:$1 > $1.theirs 2>&1
 	if [ $? -ne 0 ]; then
-		echo "\t\t...Not in MERGE_HEAD"
+		echo "		...Not in MERGE_HEAD"
 		# the file does not exist in MERGE_HEAD.
 		rm -f $1.theirs
 		exit 0;
@@ -20,7 +20,7 @@ if test -f $1; then
 	
 	git show $commonSHA:$1 > $1.common 2>&1
 	if [ $? -ne 0 ]; then
-		echo "\t\t...Not in common"
+		echo "		...Not in common"
 		# the file does not exist in common.
 		rm -f $1.common
 		rm -f $1.ours
@@ -30,7 +30,7 @@ if test -f $1; then
 
 	git show HEAD:$1 > $1.ours 2>&1
 	if [ $? -ne 0 ]; then
-		echo "\t\t...Not in HEAD"
+		echo "		...Not in HEAD"
 		# the file does not exist in HEAD.
 		rm -f $1.common
 		rm -f $1.ours
@@ -48,11 +48,12 @@ if test -f $1; then
 	# Delete temp files
 	rm $1.common $1.theirs $1.ours
 
-	echo "$1"
+	echo "		...Mergefile created."
+	exit 0
 
 
 else
-	echo "\t\tFailed: $1 not found."
+	echo "		Failed: $1 not found."
 	exit 1
 fi
 
