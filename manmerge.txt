@@ -1,0 +1,4 @@
+Marlin/Configuration.h
+Marlin/Configuration_adv.h
+Platformio.ini
+Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_3.h
