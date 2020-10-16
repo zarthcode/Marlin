@@ -1,0 +1,28 @@
+' gitmanmerge filepath
+
+git merge origin/bugfix-2.0.x -X theirs --no-commit
+
+git merge-base HEAD MERGE_HEAD
+git show <merge-base SHA1>:path/to/file.txt > ./file.common.txt
+git show origin/master:path/to/file.txt > ./file.theirs.txt
+git merge-file path/to/file.txt ./file.common.txt ./file.theirs.txt
+
+8f86f7c601d6951496f1233135b5ebbb767bc461
+
+# Find the merge base SHA1 (the common ancestor) for the two commits:
+git merge-base HEAD origin/master
+
+# Get the contents of the files at each stage
+git show <merge-base SHA1>:path/to/file.txt > ./file.common
+git show HEAD:path/to/file.txt > ./file.ours
+git show MERGE_HEAD:path/to/file.txt > ./file.theirs
+
+# You can pre-edit any of the files (e.g. run a formatter on it), if you want.
+
+# Merge the files
+git merge-file -p ./Marlin/Configuration.h.ours ./Marlin/Configuration.h.common ./Marlin/Configuration.h.theirs > ./Marlin/Configuration.h
+
+# Run mergetool / Resolve merge conflicts in ./file.merged.txt
+
+# Copy the merged version to the destination
+# Clean up the intermediate files
