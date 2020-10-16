@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 #
 # manmerge <file path>
 #
@@ -10,9 +10,30 @@ if test -f $1; then
 	commonSHA=`git merge-base HEAD MERGE_HEAD`
 
 	# blurt common/theirs/ours into a file.
-	git show $commonSHA:$1 > $1.common
-	git show HEAD:$1 > $1.ours
-	git show MERGE_HEAD:$1 > $1.theirs
+	
+	git show $commonSHA:$1 > $1.common 2>&1
+	if [ $? -ne 0 ]; then
+		# the file does not exist in common.
+		rm -f $1.common
+		exit 0;
+	fi
+
+	git show HEAD:$1 > $1.ours 2>&1
+	if [ $? -ne 0 ]; then
+		# the file does not exist in HEAD.
+		rm -f $1.common
+		rm -f $1.ours
+		exit 0;
+	fi
+
+	git show MERGE_HEAD:$1 > $1.theirs 2>&1
+	if [ $? -ne 0 ]; then
+		# the file does not exist in MERGE_HEAD.
+		rm -f $1.common
+		rm -f $1.ours
+		rm -f $1.theirs
+		exit 0;
+	fi
 
 	# Merge items into the output file.
 	git merge-file -p $1.ours $1.common $1.theirs > $1
