@@ -39,8 +39,19 @@ if test -f $1; then
 	fi
 
 
+
+
 	# Merge items into the output file.
 	git merge-file -p $1.ours $1.common $1.theirs > $1
+	conflicts=$?
+	if [ $conflicts -eq 0 ] then
+		echo "		No changes/conflicts."
+	elif [ $conflicts -gt 0 ] then
+		echo "		$conflicts conflicts ready for merge."
+	else
+		echo "		Error reported ($conflicts)."
+	fi
+
 
 	# Unstage the file so that it calls attention.
 	git reset $1
@@ -48,7 +59,6 @@ if test -f $1; then
 	# Delete temp files
 	rm $1.common $1.theirs $1.ours
 
-	echo "		...Mergefile created."
 	exit 0
 
 
