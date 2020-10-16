@@ -17,13 +17,14 @@ if test -f ./manmerge.sh && test -f ./manmerge.txt; then
 	while read line; do
 		# Read line and process it
 		if test -f $line; then
+			echo "\t$line:"
 			./manmerge.sh $line
 		else
 			echo "File $line not found."
 			exit 1
 		fi
 	done < ./manmerge.txt
-	echo "Automerge complete, please examine the files, restage, recompile, and commit."
+	echo "Automerge complete, please examine modified files, restage, recompile, and commit."
 
 else
 	echo "./manmerge.sh and manmerge.txt not found! Aborting..."
